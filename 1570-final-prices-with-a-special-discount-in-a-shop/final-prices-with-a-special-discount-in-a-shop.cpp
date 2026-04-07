@@ -1,29 +1,14 @@
 class Solution {
 public:
-    vector<int> finalPrices(vector<int>& vec) {
-        vector<int> ans;
-        for (int i = 0; i < vec.size() - 1; i++) {
-            int j = i + 1;
-            if (vec[i] >= vec[j]) {
-                ans.push_back(vec[i] - vec[j]);
-            } else {
-
-                int k = j;
-                bool flag = false;
-                while (k < vec.size()) {
-                    if (vec[i] >= vec[k]) {
-                        ans.push_back(vec[i] - vec[k]);
-                        flag = true;
-                        break;
-                    }
-                    k++;
-                }
-                if (!flag) {
-                    ans.push_back(vec[i]);
-                }
-            }
+    vector<int> finalPrices(vector<int>& prices) {
+        stack<int>st;
+        for(int i=prices.size()-1;i>=0;i--){
+            int res=0;
+            while(!st.empty()&&st.top()>prices[i]) st.pop();
+            if(!st.empty()) res=st.top();
+            st.push(prices[i]);
+            prices[i]=(prices[i]-res);
         }
-        ans.push_back(vec[vec.size() - 1]);
-        return ans;
+        return prices;
     }
 };
