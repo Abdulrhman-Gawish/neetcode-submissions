@@ -1,23 +1,24 @@
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int size = n * n;
         int repeated = 0, missing = 0;
-        map<int, int> freq;
-        int n = pow(grid.size(), 2);
-        int sum = n * (n + 1) / 2;
+        vector<int> freq(size + 5, 0);
         for (auto i : grid) {
             for (auto ii : i) {
                 freq[ii]++;
+                if (freq[ii] > 1) {
+                    repeated = ii;
+                }
             }
         }
-        for (auto& itr : freq) {
-            if (itr.second > 1) {
-                repeated = itr.first;
-                sum -= itr.first;
-            } else {
-                sum -= itr.first;
+        for(int i = 1; i <= size; i++){
+            if(freq[i] == 0){
+                missing = i;
             }
         }
-        return {repeated, sum};
+        return {repeated, missing};
+
     }
 };
