@@ -16,11 +16,12 @@ public:
         }
 
         int ans = INT_MAX;
-        ans = min(ans, freq['b']);
-        ans = min(ans, freq['a']);
-        ans = min(ans, freq['l']/2);
-        ans = min(ans, freq['o']/2);
-        ans = min(ans, freq['n']);
+        for (auto itr : freq) {
+            if (itr.first == 'o' || itr.first == 'l')
+                ans = min(ans, itr.second / 2);
+            else
+                ans = min(ans, itr.second);
+        }
         return ans;
     }
 };
