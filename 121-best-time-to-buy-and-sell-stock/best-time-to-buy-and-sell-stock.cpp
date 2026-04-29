@@ -1,15 +1,16 @@
 class Solution {
 public:
     int maxProfit(vector<int>& vec) {
-        int min_price = 100000;
-        int max_price = -1;
+        int minn = 1e5 + 5;
+        int maxx = -1;
         int ans = 0;
         for (int i = 0; i < vec.size(); i++) {
-            if (vec[i] < min_price) {
-                min_price = vec[i];
+            if (vec[i] < minn) {
+                minn = vec[i];
+            } else {
+                int profit = vec[i] - minn;
+                ans = max(ans, profit);
             }
-            int profit = vec[i] - min_price;
-            ans = max(ans, profit);
         }
         return ans;
     }
